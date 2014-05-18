@@ -11,14 +11,17 @@ import (
 
 const reporterFormat = "Test failed\nwhere:\tline %d, %s\ngot:\t%v\n%s:\t%v"
 
+// TODO: documentation
 func Win(test *testing.T, got interface{}, good interface{}) {
 	validate(test, got, good, true)
 }
 
+// TODO: documentation
 func Fail(test *testing.T, got interface{}, bad interface{}) {
 	validate(test, got, bad, false)
 }
 
+// TODO: test
 func validate(test *testing.T, got interface{}, flag interface{}, expected bool) {
 	// TODO: detect -fatal flag and use Fatalf instead
 	reporter := test.Errorf
