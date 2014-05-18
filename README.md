@@ -1,4 +1,4 @@
-fail
+epic
 ====
 
-A compact, fluent interface to handle failing tests in Go
+A compact test validator for Go.
