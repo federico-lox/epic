@@ -10,7 +10,7 @@ executions results.
 
 Features
 
-* Simple syntax with humor: Only two methods, that's all you'll need to deal with
+* Simple syntax with humor: Only two methods, that's all you'll have to deal with
 
 * 100% integrated with "go test", works side-by-side with the "testing" package
 
