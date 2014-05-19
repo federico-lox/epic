@@ -123,7 +123,7 @@ var (
 // Win validates "got" against "good" for equality and fails "test" if they differ.
 // Use this function every time your test's success is bound to a specific value.
 func Win(test *testing.T, got interface{}, good interface{}) {
-	if report := validate(got, good, true); report != "" {
+	if report, ok := validate(got, good, true); !ok {
 		test.Fail()
 		fmt.Print(report)
 	}
@@ -132,7 +132,7 @@ func Win(test *testing.T, got interface{}, good interface{}) {
 // Fail validates "got" against "bad" for inequality and fails "test" if they're equal.
 // Use this function every time your test's success is bound to any value except a specific one.
 func Fail(test *testing.T, got interface{}, bad interface{}) {
-	if report := validate(got, bad, false); report != "" {
+	if report, ok := validate(got, bad, false); !ok {
 		test.Fail()
 		fmt.Print(report)
 	}
@@ -169,7 +169,7 @@ func context() (string, string, int) {
 	return function, file, line
 }
 
-func validate(got interface{}, expected interface{}, truth bool) (report string) {
+func validate(got interface{}, expected interface{}, truth bool) (report string, ok bool) {
 	if reflect.DeepEqual(got, expected) != truth {
 		var not string
 
@@ -191,6 +191,10 @@ func validate(got interface{}, expected interface{}, truth bool) (report string)
 			not,
 			expected,
 		)
+
+		ok = false
+	} else {
+		ok = true
 	}
 
 	return

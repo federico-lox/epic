@@ -17,14 +17,15 @@ var (
 	origSequence      = headlinesSequence
 	origIndex         = headlinesIndex
 	validateTestCases = []struct {
-		got      int
-		want     int
-		truth    bool
-		expected string
+		got    int
+		want   int
+		truth  bool
+		ok     bool
+		report string
 	}{
-		{1, 1, true, ""},
-		{1, 2, false, ""},
-		{1, 2, true, fmt.Sprintf(
+		{1, 1, true, true, ""},
+		{1, 2, false, true, ""},
+		{1, 2, true, false, fmt.Sprintf(
 			reportFormat,
 			fakeFunction,
 			fakeFile,
@@ -37,7 +38,7 @@ var (
 			"",
 			2,
 		)},
-		{1, 1, false, fmt.Sprintf(
+		{1, 1, false, false, fmt.Sprintf(
 			reportFormat,
 			fakeFunction,
 			fakeFile,
@@ -84,10 +85,10 @@ func TestValidate(test *testing.T) {
 	extractContext = fakeContext
 
 	for _, testCase := range validateTestCases {
-		report := validate(testCase.got, testCase.want, testCase.truth)
+		report, ok := validate(testCase.got, testCase.want, testCase.truth)
 
-		if report != testCase.expected {
-			test.Errorf("Report mismatch\n%s%s", report, testCase.expected)
+		if report != testCase.report || ok != testCase.ok {
+			test.Errorf("Result mismatch\n%v != %v\n%s%s", ok, testCase.ok, report, testCase.report)
 		}
 	}
 }
