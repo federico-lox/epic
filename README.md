@@ -1,4 +1,4 @@
-epic [![Build Status](https://travis-ci.org/federico-lox/epic.svg?branch=master)](https://travis-ci.org/federico-lox/epic)
+epic [![Build Status](https://travis-ci.org/federico-lox/epic.svg?branch=master)](https://travis-ci.org/federico-lox/epic) [![GoDoc](https://godoc.org/github.com/federico-lox/epic?status.png)](https://godoc.org/github.com/federico-lox/epic)
 ====
 
 Epic streamlines validating test results, it moves away from the richness of methods that characterizes the
