@@ -124,8 +124,8 @@ var (
 // Use this function every time your test's success is bound to a specific value.
 func Win(test *testing.T, got interface{}, good interface{}) {
 	if report, ok := validate(got, good, true); !ok {
-		test.Fail()
 		fmt.Print(report)
+		test.Fail()
 	}
 }
 
@@ -133,8 +133,8 @@ func Win(test *testing.T, got interface{}, good interface{}) {
 // Use this function every time your test's success is bound to any value except a specific one.
 func Fail(test *testing.T, got interface{}, bad interface{}) {
 	if report, ok := validate(got, bad, false); !ok {
-		test.Fail()
 		fmt.Print(report)
+		test.Fail()
 	}
 }
 
