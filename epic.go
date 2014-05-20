@@ -98,7 +98,6 @@ const (
 
 var (
 	extractContext = context
-	headlinesIndex = indexReset
 	headlines      = []string{
 		"Uh-oh...",
 		"Huston, we have a problem!",
@@ -117,7 +116,6 @@ var (
 		"These are not the tests you're looking for.",
 		"Of course this had to fail when I was about to leave for a beer.",
 	}
-	headlinesSequence []int
 )
 
 // Win validates "got" against "good" for equality and fails "test" if they differ.
@@ -140,17 +138,6 @@ func Fail(test *testing.T, got interface{}, bad interface{}) {
 
 func init() {
 	rand.Seed(time.Now().Unix())
-	headlinesSequence = rand.Perm(len(headlines))
-}
-
-func headline() string {
-	if headlinesIndex == len(headlinesSequence)-1 {
-		headlinesIndex = indexReset
-	}
-
-	headlinesIndex++
-
-	return headlines[headlinesSequence[headlinesIndex]]
 }
 
 func context() (string, string, int) {
@@ -184,7 +171,7 @@ func validate(got interface{}, expected interface{}, truth bool) (report string,
 			file,
 			line,
 			qotfLabel,
-			headline(),
+			headlines[rand.Intn(len(headlines))],
 			gotLabel,
 			got,
 			wantLabel,

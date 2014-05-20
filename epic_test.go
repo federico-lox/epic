@@ -14,8 +14,6 @@ const (
 
 var (
 	origHeadlines     = headlines
-	origSequence      = headlinesSequence
-	origIndex         = headlinesIndex
 	validateTestCases = []struct {
 		got    int
 		want   int
@@ -56,23 +54,10 @@ var (
 
 func mockHeadlines(items ...string) {
 	headlines = []string{fakeHeadline}
-	headlinesIndex = indexReset
-	headlinesSequence = []int{0}
 }
 
 func restoreHeadlines() {
 	headlines = origHeadlines
-	headlinesSequence = origSequence
-	headlinesIndex = origIndex
-}
-
-func TestValidateHeadlne(test *testing.T) {
-	mockHeadlines()
-	defer restoreHeadlines()
-
-	if got := headline(); got != fakeHeadline {
-		test.Errorf("Got %v, want %v", got, fakeHeadline)
-	}
 }
 
 func fakeContext() (string, string, int) {
