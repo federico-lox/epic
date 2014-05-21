@@ -23,47 +23,21 @@ var (
 	}{
 		{1, 1, true, true, ""},
 		{1, 2, false, true, ""},
-		{1, 2, true, false, fmt.Sprintf(
-			reportFormat,
-			fakeFunction,
-			fakeFile,
-			fakeLine,
-			qotfLabel,
-			fakeQotf,
-			gotLabel,
-			1,
-			wantLabel,
-			"",
-			2,
-		)},
-		{1, 1, false, false, fmt.Sprintf(
-			reportFormat,
-			fakeFunction,
-			fakeFile,
-			fakeLine,
-			qotfLabel,
-			fakeQotf,
-			gotLabel,
-			1,
-			wantLabel,
-			notLabel,
-			1,
-		)},
+		{1, 2, true, false, fmt.Sprintf(reportFormat, fakeFunction, fakeFile, fakeLine, fakeQotf, 1, "", 2)},
+		{1, 1, false, false, fmt.Sprintf(reportFormat, fakeFunction, fakeFile, fakeLine, fakeQotf, 1, notLabel, 1)},
 	}
 )
 
 func mockGlobals() {
 	qotf = []string{fakeQotf}
-	extractContext = fakeContext
+	extractContext = func() (string, string, int) {
+		return fakeFunction, fakeFile, fakeLine
+	}
 }
 
 func restoreGlobals() {
 	qotf = origQotf
 	extractContext = context
-}
-
-func fakeContext() (string, string, int) {
-	return fakeFunction, fakeFile, fakeLine
 }
 
 func TestValidate(test *testing.T) {

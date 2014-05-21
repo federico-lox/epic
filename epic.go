@@ -56,8 +56,8 @@ In the previous example the first validation will fail, here's what that would l
 
 	### mytests.TestEpicExample in filename.go at line 8
 	--- QOTF: Huston, we have a problem!
-	--- GOT : 2014-05-19
-	--- WANT: 1982-02-28
+	--- GOT : 2014-05-22 01:02:00 +0200 CEST
+	--- WANT: 1982-02-28 22:00:00 +0000 UTC
 	--- FAIL: TestEpicExample (0.00 seconds)
 
 Easy to read and fun, isn't it?
@@ -88,17 +88,13 @@ import (
 )
 
 const (
-	indexReset   = -1
-	qotfLabel    = "QOTF"
-	gotLabel     = "GOT"
-	wantLabel    = "WANT"
 	notLabel     = "(not) "
-	reportFormat = "### %s in %s at line %d\n--- %-4s: %s\n--- %-4s: %v\n--- %-4s: %s%v\n"
+	reportFormat = "### %s in %s at line %d\n--- QOTF: %s\n--- GOT : %v\n--- WANT: %s%v\n"
 )
 
 var (
 	extractContext = context
-	random         *rand.Rand
+	random         = rand.New(rand.NewSource(time.Now().Unix()))
 )
 
 // Win validates "got" against "good" for equality and fails "test" if they differ.
@@ -119,20 +115,13 @@ func Fail(test *testing.T, got interface{}, bad interface{}) {
 	}
 }
 
-func init() {
-	random = rand.New(rand.NewSource(time.Now().Unix()))
-}
-
 func context() (function string, file string, line int) {
 	pc, file, line, ok := runtime.Caller(3)
 
 	if ok {
-		function = runtime.FuncForPC(pc).Name()
-		file = filepath.Base(file)
+		function, file = runtime.FuncForPC(pc).Name(), filepath.Base(file)
 	} else {
-		function = "???"
-		file = "???"
-		line = 1
+		function, file, line = "???", "???", 1
 	}
 
 	return
@@ -147,19 +136,7 @@ func validate(got interface{}, expected interface{}, truth bool) (report string,
 		}
 
 		function, file, line := extractContext()
-		report = fmt.Sprintf(
-			reportFormat,
-			function,
-			file,
-			line,
-			qotfLabel,
-			qotf[random.Intn(len(qotf))],
-			gotLabel,
-			got,
-			wantLabel,
-			not,
-			expected,
-		)
+		report = fmt.Sprintf(reportFormat, function, file, line, qotf[random.Intn(len(qotf))], got, not, expected)
 	} else {
 		ok = true
 	}
