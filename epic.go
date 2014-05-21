@@ -16,6 +16,8 @@ Features
 
 * Clear, well formatted output for failures
 
+* No magic, ~100 LoC of idiomatic code that you can read and *understand*
+
 * QOTF: For each failure a Quote of The Fail to make you smile at your misery
 
 Installing and updatinsg
