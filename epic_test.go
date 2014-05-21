@@ -9,11 +9,11 @@ const (
 	fakeFunction = "a"
 	fakeFile     = "x"
 	fakeLine     = -1
-	fakeHeadline = "Hello!"
+	fakeQotf     = "Hello!"
 )
 
 var (
-	origHeadlines     = headlines
+	origQotf          = qotf
 	validateTestCases = []struct {
 		got    int
 		want   int
@@ -29,7 +29,7 @@ var (
 			fakeFile,
 			fakeLine,
 			qotfLabel,
-			fakeHeadline,
+			fakeQotf,
 			gotLabel,
 			1,
 			wantLabel,
@@ -42,7 +42,7 @@ var (
 			fakeFile,
 			fakeLine,
 			qotfLabel,
-			fakeHeadline,
+			fakeQotf,
 			gotLabel,
 			1,
 			wantLabel,
@@ -52,12 +52,14 @@ var (
 	}
 )
 
-func mockHeadlines(items ...string) {
-	headlines = []string{fakeHeadline}
+func mockGlobals() {
+	qotf = []string{fakeQotf}
+	extractContext = fakeContext
 }
 
-func restoreHeadlines() {
-	headlines = origHeadlines
+func restoreGlobals() {
+	qotf = origQotf
+	extractContext = context
 }
 
 func fakeContext() (string, string, int) {
@@ -65,9 +67,8 @@ func fakeContext() (string, string, int) {
 }
 
 func TestValidate(test *testing.T) {
-	mockHeadlines()
-	defer restoreHeadlines()
-	extractContext = fakeContext
+	mockGlobals()
+	defer restoreGlobals()
 
 	for _, testCase := range validateTestCases {
 		report, ok := validate(testCase.got, testCase.want, testCase.truth)
