@@ -13,6 +13,7 @@ Features
 * Simple syntax with humor: Only two methods, that's all you'll have to deal with
 * 100% integrated with "go test", works side-by-side with the "testing" package
 * Clear, well formatted output for failures
+* No magic, ~100 LoC of idiomatic code that you can read and **understand**
 * QOTF: For each failure a Quote of The Fail to make you smile at your misery
 
 Documentation
