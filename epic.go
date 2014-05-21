@@ -18,7 +18,7 @@ Features
 
 * QOTF: For each failure a Quote of The Fail to make you smile at your misery
 
-Installing and updating
+Installing and updatinsg
 
 Install the epic package with the following command:
 
@@ -116,6 +116,7 @@ var (
 		"These are not the tests you're looking for.",
 		"Of course this had to fail when I was about to leave for a beer.",
 	}
+	random *rand.Rand
 )
 
 // Win validates "got" against "good" for equality and fails "test" if they differ.
@@ -137,7 +138,7 @@ func Fail(test *testing.T, got interface{}, bad interface{}) {
 }
 
 func init() {
-	rand.Seed(time.Now().Unix())
+	random = rand.New(rand.NewSource(time.Now().Unix()))
 }
 
 func context() (string, string, int) {
@@ -171,7 +172,7 @@ func validate(got interface{}, expected interface{}, truth bool) (report string,
 			file,
 			line,
 			qotfLabel,
-			headlines[rand.Intn(len(headlines))],
+			headlines[random.Intn(len(headlines))],
 			gotLabel,
 			got,
 			wantLabel,
