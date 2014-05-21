@@ -123,9 +123,8 @@ func init() {
 	random = rand.New(rand.NewSource(time.Now().Unix()))
 }
 
-func context() (string, string, int) {
+func context() (function string, file string, line int) {
 	pc, file, line, ok := runtime.Caller(3)
-	var function string
 
 	if ok {
 		function = runtime.FuncForPC(pc).Name()
@@ -136,7 +135,7 @@ func context() (string, string, int) {
 		line = 1
 	}
 
-	return function, file, line
+	return
 }
 
 func validate(got interface{}, expected interface{}, truth bool) (report string, ok bool) {
@@ -161,8 +160,6 @@ func validate(got interface{}, expected interface{}, truth bool) (report string,
 			not,
 			expected,
 		)
-
-		ok = false
 	} else {
 		ok = true
 	}
