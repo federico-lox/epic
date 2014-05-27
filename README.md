@@ -26,7 +26,7 @@ Documentation
 Epic's documentation is available at [godoc.org][godoc]
 
 
-[travisCI]: https://travis-ci.org/federico-lox/epic "Build status (TravisCI)"
-[drone.io]: https://drone.io/github.com/federico-lox/epic/latest "Build status (Drone.io)"
+[travisCI]: https://travis-ci.org/federico-lox/epic "Build status (Go 1.0, 1.1, 1.2, tip at TravisCI)"
+[drone.io]: https://drone.io/github.com/federico-lox/epic/latest "Build status (Go latest stable and coverage at Drone.io)"
 [coveralls]: https://coveralls.io/r/federico-lox/epic?branch=master "Code coverage"
 [godoc]: https://godoc.org/github.com/federico-lox/epic "Package documentation"
